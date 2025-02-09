@@ -22,7 +22,7 @@ public class BatchingTest
         return Stream.of(arguments(ProducerType.MULTI), arguments(ProducerType.SINGLE));
     }
 
-    private static class ParallelEventHandler implements EventHandler<LongEvent>
+    private static final class ParallelEventHandler implements EventHandler<LongEvent>
     {
         private final long mask;
         private final long ordinal;
@@ -88,7 +88,7 @@ public class BatchingTest
         }
 
         while (handler1.processed != eventCount - 1 ||
-            handler2.processed != eventCount - 1)
+                handler2.processed != eventCount - 1)
         {
             Thread.sleep(1);
         }

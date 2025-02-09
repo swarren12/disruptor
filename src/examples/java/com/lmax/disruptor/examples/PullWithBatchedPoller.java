@@ -86,7 +86,7 @@ public class PullWithBatchedPoller
             }
         }
 
-        private static class BatchedData<T>
+        private static final class BatchedData<T>
         {
             private int msgHighBound;
             private final int capacity;

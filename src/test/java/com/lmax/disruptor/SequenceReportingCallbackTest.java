@@ -56,7 +56,7 @@ public class SequenceReportingCallbackTest
         thread.join();
     }
 
-    private class TestSequenceReportingEventHandler implements EventHandler<StubEvent>
+    private final class TestSequenceReportingEventHandler implements EventHandler<StubEvent>
     {
         private Sequence sequenceCallback;
 

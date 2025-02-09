@@ -207,7 +207,7 @@ public class SequenceStressVarHandle
         private final Holder h1 = new Holder();
         private final Holder h2 = h1;
 
-        private static class Holder
+        private static final class Holder
         {
             SequenceVarHandle sequence = new SequenceVarHandle(0);
         }

@@ -92,7 +92,7 @@ public final class MaxBatchSizeEventProcessorTest
         countDownLatch.await();
     }
 
-    private static class BatchLimitRecordingHandler implements EventHandler<StubEvent>
+    private static final class BatchLimitRecordingHandler implements EventHandler<StubEvent>
     {
         public final List<List<Long>> batchedSequences = new ArrayList<>();
         private List<Long> currentSequences;

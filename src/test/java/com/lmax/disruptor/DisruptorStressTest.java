@@ -93,7 +93,7 @@ public class DisruptorStressTest
         return testEventHandlers;
     }
 
-    private static class TestEventHandler implements EventHandler<TestEvent>
+    private static final class TestEventHandler implements EventHandler<TestEvent>
     {
         public int failureCount = 0;
         public int messagesSeen = 0;
@@ -106,9 +106,9 @@ public class DisruptorStressTest
         public void onEvent(final TestEvent event, final long sequence, final boolean endOfBatch) throws Exception
         {
             if (event.sequence != sequence ||
-                event.a != sequence + 13 ||
-                event.b != sequence - 7 ||
-                !("wibble-" + sequence).equals(event.s))
+                    event.a != sequence + 13 ||
+                    event.b != sequence - 7 ||
+                    !("wibble-" + sequence).equals(event.s))
             {
                 failureCount++;
             }
@@ -117,7 +117,7 @@ public class DisruptorStressTest
         }
     }
 
-    private static class Publisher implements Runnable
+    private static final class Publisher implements Runnable
     {
         private final RingBuffer<TestEvent> ringBuffer;
         private final CyclicBarrier barrier;
@@ -127,10 +127,10 @@ public class DisruptorStressTest
         public boolean failed = false;
 
         Publisher(
-            final RingBuffer<TestEvent> ringBuffer,
-            final int iterations,
-            final CyclicBarrier barrier,
-            final CountDownLatch shutdownLatch)
+                final RingBuffer<TestEvent> ringBuffer,
+                final int iterations,
+                final CyclicBarrier barrier,
+                final CountDownLatch shutdownLatch)
         {
             this.ringBuffer = ringBuffer;
             this.barrier = barrier;
@@ -168,7 +168,7 @@ public class DisruptorStressTest
         }
     }
 
-    private static class TestEvent
+    private static final class TestEvent
     {
         public long sequence;
         public long a;

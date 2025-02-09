@@ -11,14 +11,14 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ShutdownOnError
 {
-    private static class Event
+    private static final class Event
     {
         public long value;
 
         public static final EventFactory<Event> FACTORY = Event::new;
     }
 
-    private static class Handler implements EventHandler<Event>
+    private static final class Handler implements EventHandler<Event>
     {
         @Override
         public void onEvent(final Event event, final long sequence, final boolean endOfBatch)

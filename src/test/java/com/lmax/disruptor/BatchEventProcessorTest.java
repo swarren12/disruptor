@@ -52,7 +52,7 @@ public final class BatchEventProcessorTest
 
     @Test
     public void shouldCallMethodsInLifecycleOrderForBatch()
-        throws Exception
+            throws Exception
     {
         CountDownLatch eventLatch = new CountDownLatch(3);
         LatchEventHandler eventHandler = new LatchEventHandler(eventLatch);
@@ -76,7 +76,7 @@ public final class BatchEventProcessorTest
 
     @Test
     public void shouldCallExceptionHandlerOnUncaughtException()
-        throws Exception
+            throws Exception
     {
         CountDownLatch exceptionLatch = new CountDownLatch(1);
         LatchExceptionHandler latchExceptionHandler = new LatchExceptionHandler(exceptionLatch);
@@ -97,7 +97,7 @@ public final class BatchEventProcessorTest
         thread.join();
     }
 
-    private static class LatchEventHandler implements EventHandler<StubEvent>
+    private static final class LatchEventHandler implements EventHandler<StubEvent>
     {
         private final CountDownLatch latch;
 
@@ -113,7 +113,7 @@ public final class BatchEventProcessorTest
         }
     }
 
-    private static class LatchExceptionHandler implements ExceptionHandler<StubEvent>
+    private static final class LatchExceptionHandler implements ExceptionHandler<StubEvent>
     {
         private final CountDownLatch latch;
 
@@ -141,7 +141,7 @@ public final class BatchEventProcessorTest
         }
     }
 
-    private static class ExceptionEventHandler implements EventHandler<StubEvent>
+    private static final class ExceptionEventHandler implements EventHandler<StubEvent>
     {
         @Override
         public void onEvent(final StubEvent event, final long sequence, final boolean endOfBatch) throws Exception
@@ -152,13 +152,13 @@ public final class BatchEventProcessorTest
 
     @Test
     public void reportAccurateBatchSizesAtBatchStartTime()
-        throws Exception
+            throws Exception
     {
         final List<Long> batchSizes = new ArrayList<>();
         final CountDownLatch eventLatch = new CountDownLatch(6);
 
         final class LoopbackEventHandler
-            implements EventHandler<StubEvent>
+                implements EventHandler<StubEvent>
         {
 
             @Override
@@ -169,7 +169,7 @@ public final class BatchEventProcessorTest
 
             @Override
             public void onEvent(final StubEvent event, final long sequence, final boolean endOfBatch)
-                throws Exception
+                    throws Exception
             {
                 if (!endOfBatch)
                 {
@@ -203,7 +203,7 @@ public final class BatchEventProcessorTest
         WaitStrategy waitStrategy = new BusySpinWaitStrategy();
         final SingleProducerSequencer sequencer = new SingleProducerSequencer(8, waitStrategy);
         final ProcessingSequenceBarrier barrier = new ProcessingSequenceBarrier(
-            sequencer, waitStrategy, new Sequence(-1), new Sequence[0]);
+                sequencer, waitStrategy, new Sequence(-1), new Sequence[0]);
         DataProvider<Object> dp = sequence -> null;
 
         final LatchLifeCycleHandler h1 = new LatchLifeCycleHandler();
@@ -242,7 +242,7 @@ public final class BatchEventProcessorTest
         }
     }
 
-    private static class LatchLifeCycleHandler implements EventHandler<Object>
+    private static final class LatchLifeCycleHandler implements EventHandler<Object>
     {
         private final CountDownLatch startLatch = new CountDownLatch(1);
         private final CountDownLatch stopLatch = new CountDownLatch(1);
@@ -305,7 +305,7 @@ public final class BatchEventProcessorTest
         assertThat(eventHandler.batchSizeToCountMap.get(0L), nullValue());
     }
 
-    private static class DelegatingSequenceBarrier implements SequenceBarrier
+    private static final class DelegatingSequenceBarrier implements SequenceBarrier
     {
         private SequenceBarrier delegate;
         private boolean suppress = true;
@@ -354,7 +354,7 @@ public final class BatchEventProcessorTest
         }
     }
 
-    private static class BatchAwareEventHandler implements EventHandler<StubEvent>
+    private static final class BatchAwareEventHandler implements EventHandler<StubEvent>
     {
         final Map<Long, Integer> batchSizeToCountMap = new HashMap<>();
 

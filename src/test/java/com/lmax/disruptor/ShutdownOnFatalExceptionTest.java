@@ -52,7 +52,7 @@ public class ShutdownOnFatalExceptionTest
         disruptor.shutdown();
     }
 
-    private static class ByteArrayTranslator implements EventTranslator<byte[]>
+    private static final class ByteArrayTranslator implements EventTranslator<byte[]>
     {
 
         private final byte[] bytes;
@@ -69,7 +69,7 @@ public class ShutdownOnFatalExceptionTest
         }
     }
 
-    private static class FailingEventHandler implements EventHandler<byte[]>
+    private static final class FailingEventHandler implements EventHandler<byte[]>
     {
         private int count = 0;
 
@@ -85,7 +85,7 @@ public class ShutdownOnFatalExceptionTest
         }
     }
 
-    private static class ByteArrayFactory implements EventFactory<byte[]>
+    private static final class ByteArrayFactory implements EventFactory<byte[]>
     {
         private int eventSize;
 

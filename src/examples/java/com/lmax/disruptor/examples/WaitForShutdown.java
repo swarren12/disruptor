@@ -13,7 +13,7 @@ public class WaitForShutdown
 {
     private static volatile int value = 0;
 
-    private static class Handler implements EventHandler<LongEvent>
+    private static final class Handler implements EventHandler<LongEvent>
     {
         private final CountDownLatch latch;
 

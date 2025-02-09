@@ -207,7 +207,7 @@ public class SequenceStressUnsafe
         private final Holder h1 = new Holder();
         private final Holder h2 = h1;
 
-        private static class Holder
+        private static final class Holder
         {
             SequenceUnsafe sequence = new SequenceUnsafe(0);
         }

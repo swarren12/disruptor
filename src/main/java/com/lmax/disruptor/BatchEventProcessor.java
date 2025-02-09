@@ -302,7 +302,7 @@ public final class BatchEventProcessor<T>
         }
     }
 
-    private static class NoRewindHandler implements RewindHandler
+    private static final class NoRewindHandler implements RewindHandler
     {
         @Override
         public long attemptRewindGetNextSequence(final RewindableException e, final long startOfBatchSequence)

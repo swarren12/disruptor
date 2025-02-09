@@ -69,10 +69,10 @@ public final class OneToOneSequencedPollerThroughputTest extends AbstractPerfTes
     private final ExecutorService executor = Executors.newSingleThreadExecutor(DaemonThreadFactory.INSTANCE);
     private final long expectedResult = PerfTestUtil.accumulatedAddition(ITERATIONS);
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////////////////////////////////////////////
 
     private final RingBuffer<ValueEvent> ringBuffer =
-        createSingleProducer(ValueEvent.EVENT_FACTORY, BUFFER_SIZE, new YieldingWaitStrategy());
+            createSingleProducer(ValueEvent.EVENT_FACTORY, BUFFER_SIZE, new YieldingWaitStrategy());
 
     private final EventPoller<ValueEvent> poller = ringBuffer.newPoller();
     private final PollRunnable pollRunnable = new PollRunnable(poller);
@@ -81,7 +81,7 @@ public final class OneToOneSequencedPollerThroughputTest extends AbstractPerfTes
         ringBuffer.addGatingSequences(poller.getSequence());
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////////////////////////////////////////////
 
     @Override
     protected int getRequiredProcessorCount()
@@ -89,7 +89,7 @@ public final class OneToOneSequencedPollerThroughputTest extends AbstractPerfTes
         return 2;
     }
 
-    private static class PollRunnable implements Runnable, EventPoller.Handler<ValueEvent>
+    private static final class PollRunnable implements Runnable, EventPoller.Handler<ValueEvent>
     {
         private final EventPoller<ValueEvent> poller;
         private volatile boolean running = true;

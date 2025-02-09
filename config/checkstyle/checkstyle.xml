@@ -170,7 +170,6 @@
 
         <module name="FinalParameters"/>
 
-        <module name="JavadocParagraph"/>
         <module name="SingleLineJavadoc"/>
         <module name="JavadocMethod">
             <property name="accessModifiers" value="public"/>

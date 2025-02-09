@@ -14,9 +14,9 @@ public class Pipeliner
                 PipelinerEvent.FACTORY, 1024, DaemonThreadFactory.INSTANCE);
 
         disruptor.handleEventsWith(
-            new ParallelHandler(0, 3),
-            new ParallelHandler(1, 3),
-            new ParallelHandler(2, 3)
+                new ParallelHandler(0, 3),
+                new ParallelHandler(1, 3),
+                new ParallelHandler(2, 3)
         ).then(new JoiningHandler());
 
         RingBuffer<PipelinerEvent> ringBuffer = disruptor.start();
@@ -36,7 +36,7 @@ public class Pipeliner
         }
     }
 
-    private static class ParallelHandler implements EventHandler<PipelinerEvent>
+    private static final class ParallelHandler implements EventHandler<PipelinerEvent>
     {
         private final int ordinal;
         private final int totalHandlers;
@@ -57,7 +57,7 @@ public class Pipeliner
         }
     }
 
-    private static class JoiningHandler implements EventHandler<PipelinerEvent>
+    private static final class JoiningHandler implements EventHandler<PipelinerEvent>
     {
         private long lastEvent = -1;
 
@@ -74,7 +74,7 @@ public class Pipeliner
         }
     }
 
-    private static class PipelinerEvent
+    private static final class PipelinerEvent
     {
         long input;
         Object result;
@@ -85,9 +85,9 @@ public class Pipeliner
         public String toString()
         {
             return "PipelinerEvent{" +
-                "input=" + input +
-                ", result=" + result +
-                '}';
+                    "input=" + input +
+                    ", result=" + result +
+                    '}';
         }
     }
 }

@@ -76,12 +76,12 @@ public final class PingPongSequencedLatencyTest
 
     private final Histogram histogram = new Histogram(10000000000L, 4);
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////////////////////////////////////////////
 
     private final RingBuffer<ValueEvent> pingBuffer =
-        createSingleProducer(ValueEvent.EVENT_FACTORY, BUFFER_SIZE, new BlockingWaitStrategy());
+            createSingleProducer(ValueEvent.EVENT_FACTORY, BUFFER_SIZE, new BlockingWaitStrategy());
     private final RingBuffer<ValueEvent> pongBuffer =
-        createSingleProducer(ValueEvent.EVENT_FACTORY, BUFFER_SIZE, new BlockingWaitStrategy());
+            createSingleProducer(ValueEvent.EVENT_FACTORY, BUFFER_SIZE, new BlockingWaitStrategy());
 
     private final SequenceBarrier pongBarrier = pongBuffer.newBarrier();
     private final Pinger pinger = new Pinger(pingBuffer, ITERATIONS, PAUSE_NANOS);
@@ -98,7 +98,7 @@ public final class PingPongSequencedLatencyTest
         pongBuffer.addGatingSequences(pingProcessor.getSequence());
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////////////////////////////////////////////
 
     public void shouldCompareDisruptorVsQueues() throws Exception
     {
@@ -144,7 +144,7 @@ public final class PingPongSequencedLatencyTest
         test.shouldCompareDisruptorVsQueues();
     }
 
-    private static class Pinger implements EventHandler<ValueEvent>
+    private static final class Pinger implements EventHandler<ValueEvent>
     {
         private final RingBuffer<ValueEvent> buffer;
         private final long maxEvents;
@@ -226,7 +226,7 @@ public final class PingPongSequencedLatencyTest
         }
     }
 
-    private static class Ponger implements EventHandler<ValueEvent>
+    private static final class Ponger implements EventHandler<ValueEvent>
     {
         private final RingBuffer<ValueEvent> buffer;
 

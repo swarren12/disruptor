@@ -10,7 +10,7 @@ public class HandleExceptionOnTranslate
 {
     private static final int NO_VALUE_SPECIFIED = -1;
 
-    private static class MyHandler implements EventHandler<LongEvent>
+    private static final class MyHandler implements EventHandler<LongEvent>
     {
 
         @Override

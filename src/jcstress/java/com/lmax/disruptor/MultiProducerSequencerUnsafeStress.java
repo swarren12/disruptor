@@ -91,7 +91,7 @@ public final class MultiProducerSequencerUnsafeStress
         private final SameVolatileRead.Holder h1 = new SameVolatileRead.Holder();
         private final SameVolatileRead.Holder h2 = h1;
 
-        private static class Holder
+        private static final class Holder
         {
             Sequencer sequence = createSequencer();
         }

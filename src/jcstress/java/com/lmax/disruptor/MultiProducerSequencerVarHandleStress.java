@@ -89,7 +89,7 @@ public final class MultiProducerSequencerVarHandleStress
         private final Holder h1 = new Holder();
         private final Holder h2 = h1;
 
-        private static class Holder
+        private static final class Holder
         {
             Sequencer sequence = createSequencer();
         }

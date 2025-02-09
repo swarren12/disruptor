@@ -78,7 +78,7 @@ public final class OneToOneRawThroughputTest extends AbstractPerfTestDisruptor
     private static final long ITERATIONS = 1000L * 1000L * 200L;
     private final ExecutorService executor = Executors.newSingleThreadExecutor(DaemonThreadFactory.INSTANCE);
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////////////////////////////////////////////
 
     private final Sequencer sequencer = new SingleProducerSequencer(BUFFER_SIZE, new YieldingWaitStrategy());
     private final MyRunnable myRunnable = new MyRunnable(sequencer);
@@ -87,7 +87,7 @@ public final class OneToOneRawThroughputTest extends AbstractPerfTestDisruptor
         sequencer.addGatingSequences(myRunnable.sequence);
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////////////////////////////////////////////
 
     @Override
     protected int getRequiredProcessorCount()
@@ -128,7 +128,7 @@ public final class OneToOneRawThroughputTest extends AbstractPerfTestDisruptor
         }
     }
 
-    private static class MyRunnable implements Runnable
+    private static final class MyRunnable implements Runnable
     {
         private CountDownLatch latch;
         private long expectedCount;

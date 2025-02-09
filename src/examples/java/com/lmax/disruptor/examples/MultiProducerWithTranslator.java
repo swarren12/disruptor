@@ -11,15 +11,15 @@ import com.lmax.disruptor.util.DaemonThreadFactory;
 
 public class MultiProducerWithTranslator
 {
-    private static class IMessage
+    private static final class IMessage
     {
     }
 
-    private static class ITransportable
+    private static final class ITransportable
     {
     }
 
-    private static class ObjectBox
+    private static final class ObjectBox
     {
         IMessage message;
         ITransportable transportable;

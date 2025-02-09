@@ -67,14 +67,14 @@ public final class PingPongQueueLatencyTest
 
     private final Histogram histogram = new Histogram(10000000000L, 4);
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////////////////////////////////////////////
 
     private final BlockingQueue<Long> pingQueue = new ArrayBlockingQueue<>(BUFFER_SIZE);
     private final BlockingQueue<Long> pongQueue = new ArrayBlockingQueue<>(BUFFER_SIZE);
     private final QueuePinger qPinger = new QueuePinger(pingQueue, pongQueue, ITERATIONS, PAUSE_NANOS);
     private final QueuePonger qPonger = new QueuePonger(pingQueue, pongQueue);
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////////////////////////////////////////////
 
     public void testImplementation() throws Exception
     {
@@ -120,7 +120,7 @@ public final class PingPongQueueLatencyTest
         test.testImplementation();
     }
 
-    private static class QueuePinger implements Runnable
+    private static final class QueuePinger implements Runnable
     {
         private final BlockingQueue<Long> pingQueue;
         private final BlockingQueue<Long> pongQueue;
@@ -133,8 +133,8 @@ public final class PingPongQueueLatencyTest
         private final long maxEvents;
 
         QueuePinger(
-            final BlockingQueue<Long> pingQueue, final BlockingQueue<Long> pongQueue, final long maxEvents,
-            final long pauseTimeNs)
+                final BlockingQueue<Long> pingQueue, final BlockingQueue<Long> pongQueue, final long maxEvents,
+                final long pauseTimeNs)
         {
             this.pingQueue = pingQueue;
             this.pongQueue = pongQueue;
@@ -187,7 +187,7 @@ public final class PingPongQueueLatencyTest
         }
     }
 
-    private static class QueuePonger implements Runnable
+    private static final class QueuePonger implements Runnable
     {
         private final BlockingQueue<Long> pingQueue;
         private final BlockingQueue<Long> pongQueue;

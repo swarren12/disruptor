@@ -14,7 +14,7 @@ import java.util.concurrent.Executors;
 
 public class DynamicallyAddHandler
 {
-    private static class DynamicHandler implements EventHandler<StubEvent>
+    private static final class DynamicHandler implements EventHandler<StubEvent>
     {
         private final CountDownLatch shutdownLatch = new CountDownLatch(1);
 

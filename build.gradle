@@ -62,7 +62,7 @@ sourceSets {
 
 
 dependencies {
-    checkstyle 'com.puppycrawl.tools:checkstyle:10.4'
+    checkstyle 'com.puppycrawl.tools:checkstyle:10.21.2'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'
     testImplementation 'org.hamcrest:hamcrest:3.0'
 }

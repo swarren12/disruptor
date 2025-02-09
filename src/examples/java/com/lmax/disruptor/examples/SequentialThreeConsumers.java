@@ -5,7 +5,7 @@ import com.lmax.disruptor.util.DaemonThreadFactory;
 
 public class SequentialThreeConsumers
 {
-    private static class MyEvent
+    private static final class MyEvent
     {
         private Object a;
         private Object b;

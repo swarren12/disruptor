@@ -70,7 +70,7 @@ public final class OneToOneTranslatorThroughputTest extends AbstractPerfTestDisr
     private final RingBuffer<ValueEvent> ringBuffer;
     private final MutableLong value = new MutableLong(0);
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////////////////////////////////////////////
 
     @SuppressWarnings("unchecked")
     public OneToOneTranslatorThroughputTest()
@@ -85,7 +85,7 @@ public final class OneToOneTranslatorThroughputTest extends AbstractPerfTestDisr
         this.ringBuffer = disruptor.start();
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////////////////////////////////////////////
 
     @Override
     protected int getRequiredProcessorCount()
@@ -123,7 +123,7 @@ public final class OneToOneTranslatorThroughputTest extends AbstractPerfTestDisr
         return perfTestContext;
     }
 
-    private static class Translator implements EventTranslatorOneArg<ValueEvent, MutableLong>
+    private static final class Translator implements EventTranslatorOneArg<ValueEvent, MutableLong>
     {
         private static final Translator INSTANCE = new Translator();
 

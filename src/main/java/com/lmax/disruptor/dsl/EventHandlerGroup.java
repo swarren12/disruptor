@@ -37,9 +37,9 @@ public class EventHandlerGroup<T>
     private final Sequence[] sequences;
 
     EventHandlerGroup(
-        final Disruptor<T> disruptor,
-        final ConsumerRepository consumerRepository,
-        final Sequence[] sequences)
+            final Disruptor<T> disruptor,
+            final ConsumerRepository consumerRepository,
+            final Sequence[] sequences)
     {
         this.disruptor = disruptor;
         this.consumerRepository = consumerRepository;
@@ -57,8 +57,8 @@ public class EventHandlerGroup<T>
         final Sequence[] combinedSequences = new Sequence[this.sequences.length + otherHandlerGroup.sequences.length];
         System.arraycopy(this.sequences, 0, combinedSequences, 0, this.sequences.length);
         System.arraycopy(
-            otherHandlerGroup.sequences, 0,
-            combinedSequences, this.sequences.length, otherHandlerGroup.sequences.length);
+                otherHandlerGroup.sequences, 0,
+                combinedSequences, this.sequences.length, otherHandlerGroup.sequences.length);
         return new EventHandlerGroup<>(disruptor, consumerRepository, combinedSequences);
     }
 
@@ -83,11 +83,11 @@ public class EventHandlerGroup<T>
     }
 
     /**
-     * <p>Set up batch handlers to consume events from the ring buffer. These handlers will only process events
-     * after every {@link EventProcessor} in this group has processed the event.</p>
-     *
-     * <p>This method is generally used as part of a chain. For example if the handler <code>A</code> must
-     * process events before handler <code>B</code>:</p>
+     * Set up batch handlers to consume events from the ring buffer. These handlers will only process events
+     * after every {@link EventProcessor} in this group has processed the event.
+     * <p>
+     * This method is generally used as part of a chain. For example if the handler <code>A</code> must
+     * process events before handler <code>B</code>:
      *
      * <pre><code>dw.handleEventsWith(A).then(B);</code></pre>
      *
@@ -101,11 +101,11 @@ public class EventHandlerGroup<T>
     }
 
     /**
-     * <p>Set up batch handlers to consume events from the ring buffer. These handlers will only process events
-     * after every {@link EventProcessor} in this group has processed the event.</p>
-     *
-     * <p>This method is generally used as part of a chain. For example if the handler <code>A</code> must
-     * process events before handler <code>B</code>:</p>
+     * Set up batch handlers to consume events from the ring buffer. These handlers will only process events
+     * after every {@link EventProcessor} in this group has processed the event.
+     * <p>
+     * This method is generally used as part of a chain. For example if the handler <code>A</code> must
+     * process events before handler <code>B</code>:
      *
      * <pre><code>dw.handleEventsWith(A).then(B);</code></pre>
      *
@@ -121,11 +121,11 @@ public class EventHandlerGroup<T>
     }
 
     /**
-     * <p>Set up custom event processors to handle events from the ring buffer. The Disruptor will
-     * automatically start these processors when {@link Disruptor#start()} is called.</p>
-     *
-     * <p>This method is generally used as part of a chain. For example if the handler <code>A</code> must
-     * process events before handler <code>B</code>:</p>
+     * Set up custom event processors to handle events from the ring buffer. The Disruptor will
+     * automatically start these processors when {@link Disruptor#start()} is called.
+     * <p>
+     * This method is generally used as part of a chain. For example if the handler <code>A</code> must
+     * process events before handler <code>B</code>:
      *
      * @param eventProcessorFactories the event processor factories to use to create the event processors that will process events.
      * @return a {@link EventHandlerGroup} that can be used to chain dependencies.
@@ -137,11 +137,11 @@ public class EventHandlerGroup<T>
     }
 
     /**
-     * <p>Set up batch handlers to handle events from the ring buffer. These handlers will only process events
-     * after every {@link EventProcessor} in this group has processed the event.</p>
-     *
-     * <p>This method is generally used as part of a chain. For example if <code>A</code> must
-     * process events before <code>B</code>:</p>
+     * Set up batch handlers to handle events from the ring buffer. These handlers will only process events
+     * after every {@link EventProcessor} in this group has processed the event.
+     * <p>
+     * This method is generally used as part of a chain. For example if <code>A</code> must
+     * process events before <code>B</code>:
      *
      * <pre><code>dw.after(A).handleEventsWith(B);</code></pre>
      *
@@ -155,11 +155,11 @@ public class EventHandlerGroup<T>
     }
 
     /**
-     * <p>Set up batch handlers to handle events from the ring buffer. These handlers will only process events
-     * after every {@link EventProcessor} in this group has processed the event.</p>
-     *
-     * <p>This method is generally used as part of a chain. For example if <code>A</code> must
-     * process events before <code>B</code>:</p>
+     * Set up batch handlers to handle events from the ring buffer. These handlers will only process events
+     * after every {@link EventProcessor} in this group has processed the event.
+     * <p>
+     * This method is generally used as part of a chain. For example if <code>A</code> must
+     * process events before <code>B</code>:
      *
      * <pre><code>dw.after(A).handleEventsWith(B);</code></pre>
      *
@@ -175,11 +175,11 @@ public class EventHandlerGroup<T>
     }
 
     /**
-     * <p>Set up custom event processors to handle events from the ring buffer. The Disruptor will
-     * automatically start these processors when {@link Disruptor#start()} is called.</p>
-     *
-     * <p>This method is generally used as part of a chain. For example if <code>A</code> must
-     * process events before <code>B</code>:</p>
+     * Set up custom event processors to handle events from the ring buffer. The Disruptor will
+     * automatically start these processors when {@link Disruptor#start()} is called.
+     * <p>
+     * This method is generally used as part of a chain. For example if <code>A</code> must
+     * process events before <code>B</code>:
      *
      * <pre><code>dw.after(A).handleEventsWith(B);</code></pre>
      *
