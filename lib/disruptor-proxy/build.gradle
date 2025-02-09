@@ -1,0 +1,130 @@
+/*
+ * Copyright 2015-2016 LMAX Ltd.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+plugins {
+    id 'java'
+    id 'java-library'
+    id 'maven-publish'
+    id 'signing'
+    id 'checkstyle'
+    id 'idea'
+    id 'org.jreleaser' version '1.14.0'
+}
+
+
+defaultTasks 'checkstyleTest', 'checkstyleMain', 'build'
+
+ext {
+    fullName = 'Disruptor-Proxy'
+    fullDescription = 'A utility for generating Disruptor-backed proxies for easy execution serialisation'
+    teamName = 'LMAX Development Team'
+    siteUrl = 'https://github.com/LMAX-Exchange/disruptor-proxy'
+    sourceUrl = 'git@github.com:LMAX-Exchange/disruptor-proxy.git'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    checkstyle 'com.puppycrawl.tools:checkstyle:10.21.2'
+
+    implementation 'org.javassist:javassist:3.30.2-GA'
+    implementation 'com.lmax:disruptor:3.3.0'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'
+    testImplementation 'org.hamcrest:hamcrest:3.0'
+}
+
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_11
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+publishing {
+    publications {
+        disruptor(MavenPublication) {
+            from components.java
+
+            groupId = 'com.lmax'
+            artifactId = 'disruptor-proxy'
+
+            pom {
+                name = project.ext.fullName
+                description = project.ext.fullDescription
+                url = project.ext.siteUrl
+
+                scm {
+                    url = "scm:${project.ext.sourceUrl}"
+                    connection = "scm:${project.ext.sourceUrl}"
+                    developerConnection = "scm:${project.ext.sourceUrl}"
+                }
+
+                licenses {
+                    license {
+                        name = 'Apache-2.0'
+                        url = 'https://spdx.org/licenses/Apache-2.0.html'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'LMAX Group Open Source'
+                        name = teamName
+                        email = 'opensource@lmax.com'
+                    }
+                }
+            }
+        }
+    }
+
+
+    repositories {
+        maven {
+            url = layout.buildDirectory.dir('staging-deploy')
+        }
+    }
+}
+
+jreleaser {
+    files {
+        active = 'ALWAYS'
+        glob {
+            pattern = 'build/staging-deploy/**/*.jar'
+            pattern = 'build/staging-deploy/**/*.pom'
+            pattern = 'build/staging-deploy/**/*.module'
+        }
+    }
+    signing {
+        active = 'ALWAYS'
+        armored = true
+        mode = 'MEMORY'
+    }
+    deploy {
+        maven {
+            mavenCentral {
+                sonatype {
+                    active = 'ALWAYS'
+                    url = 'https://central.sonatype.com/api/v1/publisher'
+                    stagingRepository('build/staging-deploy')
+                    applyMavenCentralRules = true
+                }
+            }
+        }
+    }
+}

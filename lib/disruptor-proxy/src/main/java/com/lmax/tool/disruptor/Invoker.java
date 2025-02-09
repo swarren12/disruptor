@@ -14,17 +14,12 @@
  *    limitations under the License.
  */
 
-group = 'com.lmax'
-// The below is updated by CI during the release
-version = '1.0.0'
+package com.lmax.tool.disruptor;
 
-allprojects {
-
-    group = rootProject.group
-    version = rootProject.version
-
-    repositories {
-        mavenCentral()
-    }
-
+/**
+ * Interface for a component that can invoke arguments on a target object
+ */
+public interface Invoker
+{
+    void invokeWithArgumentHolder(Object implementation, Object argumentHolder);
 }

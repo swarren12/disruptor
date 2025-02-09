@@ -13,18 +13,19 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+package com.lmax.tool.disruptor;
 
-group = 'com.lmax'
-// The below is updated by CI during the release
-version = '1.0.0'
+import org.junit.jupiter.api.Test;
 
-allprojects {
-
-    group = rootProject.group
-    version = rootProject.version
-
-    repositories {
-        mavenCentral()
+public class RingBufferProxyGeneratorFactoryTest
+{
+    @Test
+    public void shouldBeAbleToCreateRingBufferProxyGenerator() throws Exception
+    {
+        for (GeneratorType generatorType : GeneratorType.values())
+        {
+            new RingBufferProxyGeneratorFactory().newProxy(generatorType);
+        }
+        // no exception is thrown
     }
-
 }

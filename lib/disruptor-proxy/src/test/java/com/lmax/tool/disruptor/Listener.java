@@ -14,17 +14,18 @@
  *    limitations under the License.
  */
 
-group = 'com.lmax'
-// The below is updated by CI during the release
-version = '1.0.0'
+package com.lmax.tool.disruptor;
 
-allprojects {
+@DisruptorProxy
+public interface Listener
+{
+    void onString(String value);
 
-    group = rootProject.group
-    version = rootProject.version
+    void onFloatAndInt(Float value, int intValue);
 
-    repositories {
-        mavenCentral()
-    }
+    void onVoid();
 
+    void onObjectArray(Double[] value);
+
+    void onMixedMultipleArgs(int int0, int int1, String s0, String s1, int i2);
 }

@@ -15,3 +15,5 @@
  */
 
 rootProject.name = 'disruptor-proxy'
+
+include 'lib:disruptor-proxy'
