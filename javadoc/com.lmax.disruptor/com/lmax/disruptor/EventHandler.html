@@ -6,15 +6,16 @@
 <title>EventHandler (Disruptor)</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style">
-<link rel="stylesheet" type="text/css" href="../../../../jquery/jquery-ui.css" title="Style">
+<link rel="stylesheet" type="text/css" href="../../../../jquery/jquery-ui.min.css" title="Style">
+<link rel="stylesheet" type="text/css" href="../../../../jquery-ui.overrides.css" title="Style">
 <script type="text/javascript" src="../../../../script.js"></script>
 <script type="text/javascript" src="../../../../jquery/jszip/dist/jszip.min.js"></script>
 <script type="text/javascript" src="../../../../jquery/jszip-utils/dist/jszip-utils.min.js"></script>
 <!--[if IE]>
 <script type="text/javascript" src="../../../../jquery/jszip-utils/dist/jszip-utils-ie.min.js"></script>
 <![endif]-->
-<script type="text/javascript" src="../../../../jquery/jquery-3.5.1.js"></script>
-<script type="text/javascript" src="../../../../jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../../../../jquery/jquery-3.7.1.min.js"></script>
+<script type="text/javascript" src="../../../../jquery/jquery-ui.min.js"></script>
 </head>
 <body>
 <script type="text/javascript"><!--
@@ -128,6 +129,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd><code>T</code> - event implementation storing the data for sharing during exchange or parallel coordination of an event.</dd>
 </dl>
 <dl>
+<dt>All Superinterfaces:</dt>
+<dd><code><a href="EventHandlerIdentity.html" title="interface in com.lmax.disruptor">EventHandlerIdentity</a></code></dd>
+</dl>
+<dl>
 <dt>All Known Implementing Classes:</dt>
 <dd><code><a href="AggregateEventHandler.html" title="class in com.lmax.disruptor">AggregateEventHandler</a></code></dd>
 </dl>
@@ -145,7 +150,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul class="blockList">
 <li class="blockList">
 <!-- ========== METHOD SUMMARY =========== -->
-<section role="region">
+<section>
 <ul class="blockList">
 <li class="blockList"><a id="method.summary">
 <!--   -->
@@ -160,7 +165,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>default void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onBatchStart(long)">onBatchStart</a></span>&#8203;(long&nbsp;batchSize)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink">onBatchStart</span>&#8203;(long&nbsp;batchSize,
+            long&nbsp;queueDepth)</code></th>
 <td class="colLast">
 <div class="block">Invoked by <a href="BatchEventProcessor.html" title="class in com.lmax.disruptor"><code>BatchEventProcessor</code></a> prior to processing a batch of events</div>
 </td>
@@ -176,21 +182,21 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>default void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onShutdown()">onShutdown</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink">onShutdown</span>()</code></th>
 <td class="colLast">
 <div class="block">Called once just before the event processing thread is shutdown.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>default void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onStart()">onStart</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink">onStart</span>()</code></th>
 <td class="colLast">
 <div class="block">Called once on thread start before first event is available.</div>
 </td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>default void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onTimeout(long)">onTimeout</a></span>&#8203;(long&nbsp;sequence)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink">onTimeout</span>&#8203;(long&nbsp;sequence)</code></th>
 <td class="colLast">
 <div class="block">Invoked when a <a href="BatchEventProcessor.html" title="class in com.lmax.disruptor"><code>BatchEventProcessor</code></a>'s <a href="WaitStrategy.html" title="interface in com.lmax.disruptor"><code>WaitStrategy</code></a> throws a <a href="TimeoutException.html" title="class in com.lmax.disruptor"><code>TimeoutException</code></a>.</div>
 </td>
@@ -214,7 +220,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul class="blockList">
 <li class="blockList">
 <!-- ============ METHOD DETAIL ========== -->
-<section role="region">
+<section>
 <ul class="blockList">
 <li class="blockList"><a id="method.detail">
 <!--   -->
@@ -248,17 +254,38 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dl>
 </li>
 </ul>
-<a id="onBatchStart(long)">
+<a id="setSequenceCallback(com.lmax.disruptor.Sequence)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setSequenceCallback</h4>
+<pre class="methodSignature">default&nbsp;void&nbsp;setSequenceCallback&#8203;(<a href="Sequence.html" title="class in com.lmax.disruptor">Sequence</a>&nbsp;sequenceCallback)</pre>
+<div class="block">Used by the <a href="BatchEventProcessor.html" title="class in com.lmax.disruptor"><code>BatchEventProcessor</code></a> to set a callback allowing the <a href="EventHandler.html" title="interface in com.lmax.disruptor"><code>EventHandler</code></a> to notify
+  when it has finished consuming an event if this happens after the <a href="#onEvent(T,long,boolean)"><code>onEvent(Object, long, boolean)</code></a> call.
+
+  <p>Typically this would be used when the handler is performing some sort of batching operation such as writing to an IO
+  device; after the operation has completed, the implementation should call <a href="Sequence.html#set(long)"><code>Sequence.set(long)</code></a> to update the
+  sequence and allow other processes that are dependent on this handler to progress.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sequenceCallback</code> - callback on which to notify the <a href="BatchEventProcessor.html" title="class in com.lmax.disruptor"><code>BatchEventProcessor</code></a> that the sequence has progressed.</dd>
+</dl>
+</li>
+</ul>
+<a id="onBatchStart(long,long)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>onBatchStart</h4>
-<pre class="methodSignature">default&nbsp;void&nbsp;onBatchStart&#8203;(long&nbsp;batchSize)</pre>
+<pre class="methodSignature">default&nbsp;void&nbsp;onBatchStart&#8203;(long&nbsp;batchSize,
+                          long&nbsp;queueDepth)</pre>
 <div class="block">Invoked by <a href="BatchEventProcessor.html" title="class in com.lmax.disruptor"><code>BatchEventProcessor</code></a> prior to processing a batch of events</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>batchSize</code> - the size of the batch that is starting</dd>
+<dd><code>queueDepth</code> - the total number of queued up events including the batch about to be processed</dd>
 </dl>
 </li>
 </ul>
@@ -283,25 +310,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 
  <p>Sequence event processing will already have stopped before this method is called. No events will
  be processed after this message.</div>
-</li>
-</ul>
-<a id="setSequenceCallback(com.lmax.disruptor.Sequence)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setSequenceCallback</h4>
-<pre class="methodSignature">default&nbsp;void&nbsp;setSequenceCallback&#8203;(<a href="Sequence.html" title="class in com.lmax.disruptor">Sequence</a>&nbsp;sequenceCallback)</pre>
-<div class="block">Used by the <a href="BatchEventProcessor.html" title="class in com.lmax.disruptor"><code>BatchEventProcessor</code></a> to set a callback allowing the <a href="EventHandler.html" title="interface in com.lmax.disruptor"><code>EventHandler</code></a> to notify
-  when it has finished consuming an event if this happens after the <a href="#onEvent(T,long,boolean)"><code>onEvent(Object, long, boolean)</code></a> call.
-
-  <p>Typically this would be used when the handler is performing some sort of batching operation such as writing to an IO
-  device; after the operation has completed, the implementation should call <a href="Sequence.html#set(long)"><code>Sequence.set(long)</code></a> to update the
-  sequence and allow other processes that are dependent on this handler to progress.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>sequenceCallback</code> - callback on which to notify the <a href="BatchEventProcessor.html" title="class in com.lmax.disruptor"><code>BatchEventProcessor</code></a> that the sequence has progressed.</dd>
-</dl>
 </li>
 </ul>
 <a id="onTimeout(long)">
@@ -390,7 +398,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 </nav>
-<p class="legalCopy"><small><i>Copyright &#169; 2011 - 2022 LMAX Ltd. All Rights Reserved.</i></small></p>
+<p class="legalCopy"><small><i>Copyright &#169; 2011 - 2025 LMAX Ltd. All Rights Reserved.</i></small></p>
 </footer>
 </body>
 </html>
