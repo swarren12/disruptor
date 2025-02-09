@@ -2,3 +2,4 @@ rootProject.name = 'disruptor'
 
 include ':examples'
 include ':lib:disruptor'
+include ':lib:disruptor-proxy'
