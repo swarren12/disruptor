@@ -1,0 +1,19 @@
+plugins {
+    id 'java-library'
+    id 'checkstyle'
+    id 'idea'
+}
+
+sourceSets {
+    examples {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+}
+
+
+dependencies {
+    checkstyle 'com.puppycrawl.tools:checkstyle:10.21.2'
+
+    implementation project(':lib:disruptor')
+}

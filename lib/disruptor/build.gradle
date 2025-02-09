@@ -1,0 +1,92 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'signing'
+    id 'checkstyle'
+    id 'idea'
+    id 'biz.aQute.bnd.builder' version '7.1.0'
+
+    id 'asciidoc'
+    id 'jcstress'
+    id 'jmh'
+    id 'maven'
+    id 'perf'
+}
+
+ext {
+    fullName = 'Disruptor Framework'
+    fullDescription = 'Disruptor - Concurrent Programming Framework'
+    teamName = 'LMAX Disruptor Development Team'
+    siteUrl = 'https://lmax-exchange.github.io/disruptor'
+    sourceUrl = 'git@github.com:LMAX-Exchange/disruptor.git'
+    moduleName = 'com.lmax.disruptor'
+}
+
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_11
+
+dependencies {
+    checkstyle 'com.puppycrawl.tools:checkstyle:10.21.2'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'
+    testImplementation 'org.hamcrest:hamcrest:3.0'
+}
+
+compileJava {
+    options.fork = true
+    options.debug = true
+    options.warnings = true
+    options.deprecation = true
+}
+
+compileTestJava {
+    options.fork = true
+    options.debug = true
+    options.warnings = true
+    options.deprecation = true
+}
+
+test {
+    useJUnitPlatform()
+    systemProperties = [
+            'junit.jupiter.execution.parallel.enabled'     : 'true',
+            'junit.jupiter.execution.parallel.mode.default': 'concurrent'
+    ]
+}
+
+javadoc {
+    title = 'Disruptor'
+
+    options.addStringOption('XDignore.symbol.file', '-quiet')
+    options.author = true
+    options.bottom = "<i>Copyright &#169; 2011 - ${Calendar.instance[Calendar.YEAR]} LMAX Ltd. All Rights Reserved.</i>"
+    options.use = true
+    options.version = true
+    options.showFromPublic()
+}
+
+jar {
+    manifest.attributes(
+            'Built-By': System.properties.get('user.name'),
+            'Automatic-Module-Name': moduleName
+    )
+
+    bundle.bnd(
+            '-exportcontents': 'com.lmax.disruptor.*;-noimport:=true',
+            '-noimportjava': 'true',
+            'Import-Package': '!*',
+            'Bundle-Name': fullName,
+            'Bundle-Vendor': teamName,
+            'Bundle-Description': fullDescription,
+            'Bundle-DocURL': siteUrl,
+            'Bundle-SymbolicName': moduleName,
+    )
+}
+
+tasks.withType(Test) {
+    maxParallelForks = (int) Math.max(Math.floor(Runtime.runtime.availableProcessors() / 2), 1)
+}
+
+task setUpGitHooks(type: Exec, description: 'Add a pre-commit git hook that runs gradle check & test tasks') {
+    def hooksFolder = file('.githooks').getAbsolutePath()
+    commandLine 'git', 'config', 'core.hooksPath', hooksFolder
+}

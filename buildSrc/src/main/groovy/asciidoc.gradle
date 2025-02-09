@@ -7,14 +7,16 @@ plugins {
 
 asciidoctor {
     languages 'en'
+
+    sourceDir = 'docs/asciidoc'
     resources {
-        from(javadoc) {
-            into './javadoc'
-        }
-        from('src/docs/resources') {
+        // from(javadoc) {
+        //     into './javadoc'
+        // }
+        from('docs/resources') {
             into './resources'
         }
-        from('src/docs/files') {
+        from('docs/files') {
             into './files'
         }
     }

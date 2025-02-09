@@ -160,7 +160,7 @@ Firstly we will define the `Event` that will carry the data and is common to all
 .Example `LongEvent`
 [source,java]
 ----
-include::{gradle-rootdir}/src/examples/java/com/lmax/disruptor/examples/longevent/LongEvent.java[tag=example]
+include::{gradle-rootdir}/examples/src/main/java/com/lmax/disruptor/examples/longevent/LongEvent.java[tag=example]
 ----
 
 In order to allow the Disruptor to preallocate these events for us, we need to an `EventFactory` that will perform the construction.
@@ -169,7 +169,7 @@ This could be a method reference, such as `LongEvent::new` or an explicit implem
 .Example `LongEventFactory`
 [source,java]
 ----
-include::{gradle-rootdir}/src/examples/java/com/lmax/disruptor/examples/longevent/LongEventFactory.java[tag=example]
+include::{gradle-rootdir}/examples/src/main/java/com/lmax/disruptor/examples/longevent/LongEventFactory.java[tag=example]
 ----
 
 Once we have the event defined, we need to create a consumer that will handle these events.
@@ -178,7 +178,7 @@ As an example, we will create an `EventHandler` that will print the value out to
 .Example `LongEventHandler`
 [source,java]
 ----
-include::{gradle-rootdir}/src/examples/java/com/lmax/disruptor/examples/longevent/LongEventHandler.java[tag=example]
+include::{gradle-rootdir}/examples/src/main/java/com/lmax/disruptor/examples/longevent/LongEventHandler.java[tag=example]
 ----
 
 Finally, we will need a source for these events.
@@ -195,7 +195,7 @@ This is the preferred approach, as it encapsulates much of the complexity of the
 .Publishing events using lambdas
 [source,java]
 ----
-include::{gradle-rootdir}/src/examples/java/com/lmax/disruptor/examples/longevent/lambdas/LongEventMain.java[tag=example]
+include::{gradle-rootdir}/examples/src/main/java/com/lmax/disruptor/examples/longevent/lambdas/LongEventMain.java[tag=example]
 ----
 <1> Specify the size of the ring buffer, must be power of 2.
 <2> Construct the Disruptor
@@ -230,7 +230,7 @@ Given that method references can be used instead of anonymous lambdas, it is pos
 .Example using method references
 [source,java]
 ----
-include::{gradle-rootdir}/src/examples/java/com/lmax/disruptor/examples/longevent/methodrefs/LongEventMain.java[tag=example]
+include::{gradle-rootdir}/examples/src/main/java/com/lmax/disruptor/examples/longevent/methodrefs/LongEventMain.java[tag=example]
 ----
 
 ===== Using Translators
@@ -240,7 +240,7 @@ Prior to version 3.0, the preferred way of publishing messages was via the Event
 .Example `LongEventProducer`
 [source,java]
 ----
-include::{gradle-rootdir}/src/examples/java/com/lmax/disruptor/examples/longevent/LongEventProducer.java[tag=example]
+include::{gradle-rootdir}/examples/src/main/java/com/lmax/disruptor/examples/longevent/LongEventProducer.java[tag=example]
 ----
 
 This approach uses number of extra classes (e.g. handler, translator) that are not explicitly required when using lambdas.
@@ -257,7 +257,7 @@ There is a more "raw" approach that we can use:
 .Example Legacy `LongEventProducer`
 [source,java]
 ----
-include::{gradle-rootdir}/src/examples/java/com/lmax/disruptor/examples/longevent/legacy/LongEventProducer.java[tag=example]
+include::{gradle-rootdir}/examples/src/main/java/com/lmax/disruptor/examples/longevent/legacy/LongEventProducer.java[tag=example]
 ----
 <1> Grab the next sequence
 <2> Get the entry in the Disruptor for that sequence
@@ -286,7 +286,7 @@ TIP: Some of the more complicated options are not available via the DSL; however
 .Example using the legacy `LongEventProducer`
 [source,java]
 ----
-include::{gradle-rootdir}/src/examples/java/com/lmax/disruptor/examples/longevent/legacy/LongEventMain.java[tag=example]
+include::{gradle-rootdir}/examples/src/main/java/com/lmax/disruptor/examples/longevent/legacy/LongEventMain.java[tag=example]
 ----
 
 === Basic Tuning Options
@@ -412,13 +412,13 @@ If you have a chain of event handlers, then you may need a specific handler plac
 .Example `ObjectEvent`
 [source,java]
 ----
-include::{gradle-rootdir}/src/examples/java/com/lmax/disruptor/examples/objectevent/ObjectEvent.java[tag=example]
+include::{gradle-rootdir}/examples/src/main/java/com/lmax/disruptor/examples/objectevent/ObjectEvent.java[tag=example]
 ----
 
 .Example `ClearingEventHandler`
 [source,java]
 ----
-include::{gradle-rootdir}/src/examples/java/com/lmax/disruptor/examples/objectevent/ClearingEventHandler.java[tag=example]
+include::{gradle-rootdir}/examples/src/main/java/com/lmax/disruptor/examples/objectevent/ClearingEventHandler.java[tag=example]
 ----
 <1> Failing to call `clear()` here will result in the object associated with the event to live until it is overwritten.
 This will only happen once the ring buffer has wrapped around to the beginning.
@@ -426,7 +426,7 @@ This will only happen once the ring buffer has wrapped around to the beginning.
 .Example using the `ClearingEventHandler`
 [source,java]
 ----
-include::{gradle-rootdir}/src/examples/java/com/lmax/disruptor/examples/objectevent/Main.java[tag=example]
+include::{gradle-rootdir}/examples/src/main/java/com/lmax/disruptor/examples/objectevent/Main.java[tag=example]
 ----
 
 == Advanced Techniques
@@ -436,5 +436,5 @@ include::{gradle-rootdir}/src/examples/java/com/lmax/disruptor/examples/objectev
 .Example of "Early Release"
 [source,java]
 ----
-include::{gradle-rootdir}/src/examples/java/com/lmax/disruptor/examples/EarlyReleaseHandler.java[tag=example]
+include::{gradle-rootdir}/examples/src/main/java/com/lmax/disruptor/examples/EarlyReleaseHandler.java[tag=example]
 ----
