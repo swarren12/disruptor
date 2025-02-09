@@ -1,6 +1,10 @@
 //
 // Configure JMH benchmarks
 //
+plugins {
+    id 'java-library'
+    id 'me.champeau.jmh'
+}
 
 sourceSets {
     jmh {

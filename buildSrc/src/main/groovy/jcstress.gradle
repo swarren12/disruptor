@@ -1,6 +1,10 @@
 //
 // Configure JCStress
 //
+plugins {
+    id 'java-library'
+    id 'io.github.reyerizo.gradle.jcstress'
+}
 
 jcstress {
     jcstressDependency 'org.openjdk.jcstress:jcstress-core:0.16'

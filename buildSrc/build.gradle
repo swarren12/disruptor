@@ -1,0 +1,13 @@
+plugins {
+    id 'groovy-gradle-plugin'
+}
+
+repositories {
+    gradlePluginPortal() // so that external plugins can be resolved in dependencies section
+}
+
+dependencies {
+    implementation group: 'org.asciidoctor.jvm.convert', name: 'org.asciidoctor.jvm.convert.gradle.plugin', version: '4.0.4'
+    implementation group: 'io.github.reyerizo.gradle.jcstress', name: 'io.github.reyerizo.gradle.jcstress.gradle.plugin', version: '0.8.15'
+    implementation group: 'me.champeau.jmh', name: 'me.champeau.jmh.gradle.plugin', version:'0.7.3'
+}

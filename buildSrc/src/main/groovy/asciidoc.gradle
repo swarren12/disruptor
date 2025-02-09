@@ -1,6 +1,9 @@
 //
 // Configure ASCIIDoc publishing
 //
+plugins {
+    id 'org.asciidoctor.jvm.convert'
+}
 
 asciidoctor {
     languages 'en'

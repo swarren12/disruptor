@@ -15,14 +15,15 @@
  */
 plugins {
     id 'java-library'
-    id 'maven-publish'
-    id 'signing'
     id 'checkstyle'
     id 'idea'
-    id 'io.github.reyerizo.gradle.jcstress' version '0.8.15'
-    id 'org.asciidoctor.jvm.convert' version '4.0.4'
-    id 'me.champeau.jmh' version '0.7.3'
     id 'biz.aQute.bnd.builder' version '7.1.0'
+
+    id 'asciidoc'
+    id 'jcstress'
+    id 'jmh'
+    id 'maven'
+    id 'perf'
 }
 
 group = 'com.lmax'
@@ -39,12 +40,6 @@ ext {
     moduleName = 'com.lmax.disruptor'
 }
 
-apply from: 'gradle/maven.gradle'
-apply from: 'gradle/perf.gradle'
-apply from: 'gradle/jmh.gradle'
-apply from: 'gradle/asciidoc.gradle'
-apply from: 'gradle/jcstress.gradle'
-
 wrapper.gradleVersion = '8.12.1'
 
 repositories {
@@ -59,7 +54,6 @@ sourceSets {
         runtimeClasspath += sourceSets.main.output
     }
 }
-
 
 dependencies {
     checkstyle 'com.puppycrawl.tools:checkstyle:10.21.2'
