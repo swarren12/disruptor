@@ -10,7 +10,7 @@ sourceSets {
 }
 
 dependencies {
-    perftestCompileClasspath 'org.hdrhistogram:HdrHistogram:2.1.12'
+    perftestImplementation 'org.hdrhistogram:HdrHistogram:2.2.2'
 }
 
 build.dependsOn perftestClasses

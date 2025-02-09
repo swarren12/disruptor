@@ -19,10 +19,10 @@ plugins {
     id 'signing'
     id 'checkstyle'
     id 'idea'
-    id "io.github.reyerizo.gradle.jcstress" version "0.8.14"
-    id 'org.asciidoctor.jvm.convert' version '3.3.2'
-    id "me.champeau.jmh" version "0.6.8"
-    id "biz.aQute.bnd.builder" version "6.3.1"
+    id 'io.github.reyerizo.gradle.jcstress' version '0.8.15'
+    id 'org.asciidoctor.jvm.convert' version '4.0.4'
+    id 'me.champeau.jmh' version '0.7.3'
+    id 'biz.aQute.bnd.builder' version '7.1.0'
 }
 
 group = 'com.lmax'
@@ -45,7 +45,7 @@ apply from: 'gradle/jmh.gradle'
 apply from: 'gradle/asciidoc.gradle'
 apply from: 'gradle/jcstress.gradle'
 
-wrapper.gradleVersion = '7.6'
+wrapper.gradleVersion = '8.12.1'
 
 repositories {
     mavenCentral()
@@ -53,10 +53,18 @@ repositories {
 
 sourceCompatibility = targetCompatibility = JavaVersion.VERSION_11
 
+sourceSets {
+    examples {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+}
+
+
 dependencies {
     checkstyle 'com.puppycrawl.tools:checkstyle:10.4'
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.0'
-    testImplementation 'org.hamcrest:hamcrest:2.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'
+    testImplementation 'org.hamcrest:hamcrest:3.0'
 }
 
 compileJava {
@@ -65,6 +73,7 @@ compileJava {
     options.warnings = true
     options.deprecation = true
 }
+
 compileTestJava {
     options.fork = true
     options.debug = true
@@ -75,7 +84,7 @@ compileTestJava {
 test {
     useJUnitPlatform()
     systemProperties = [
-            'junit.jupiter.execution.parallel.enabled': 'true',
+            'junit.jupiter.execution.parallel.enabled'     : 'true',
             'junit.jupiter.execution.parallel.mode.default': 'concurrent'
     ]
 }
@@ -92,9 +101,12 @@ javadoc {
 }
 
 jar {
-    manifest.attributes('Built-By': System.properties.get('user.name'),
-            'Automatic-Module-Name': moduleName)
-    bnd(
+    manifest.attributes(
+            'Built-By': System.properties.get('user.name'),
+            'Automatic-Module-Name': moduleName
+    )
+
+    bundle.bnd(
             '-exportcontents': 'com.lmax.disruptor.*;-noimport:=true',
             '-noimportjava': 'true',
             'Import-Package': '!*',
@@ -122,12 +134,5 @@ class Version {
 
     String toString() {
         "$major.$minor.$revision${stage ? '.' + stage : ''}${snapshot ? '-SNAPSHOT' : ''}"
-    }
-}
-
-sourceSets {
-    examples {
-        compileClasspath += sourceSets.main.output
-        runtimeClasspath += sourceSets.main.output
     }
 }

@@ -9,13 +9,13 @@ sourceSets {
     }
 }
 
-def jmhLibVersion = '1.35'
+def jmhLibVersion = '1.37'
 
 dependencies {
     jmhImplementation "org.openjdk.jmh:jmh-core:${jmhLibVersion}"
     jmhAnnotationProcessor "org.openjdk.jmh:jmh-generator-annprocess:${jmhLibVersion}"
 
-    jmhImplementation 'net.openhft:affinity:3.23.2'
+    jmhImplementation 'net.openhft:affinity:3.23.3'
 }
 
 jmh {
