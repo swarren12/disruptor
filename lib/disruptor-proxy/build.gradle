@@ -43,7 +43,7 @@ dependencies {
     checkstyle 'com.puppycrawl.tools:checkstyle:10.21.2'
 
     implementation 'org.javassist:javassist:3.30.2-GA'
-    implementation 'com.lmax:disruptor:3.3.0'
+    implementation 'com.lmax:disruptor:4.0.0'
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'
     testImplementation 'org.hamcrest:hamcrest:3.0'
